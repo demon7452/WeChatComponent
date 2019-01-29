@@ -16,7 +16,6 @@
         <dependency>
             <groupId>xiong</groupId>
             <artifactId>component-api</artifactId>
-            <version>1.0.0</version>
         </dependency>
 
         <dependency>
