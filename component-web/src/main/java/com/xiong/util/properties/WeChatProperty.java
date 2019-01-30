@@ -23,6 +23,8 @@ public class WeChatProperty {
     @Value("${qrcode_show_url}")
     private String qrCodeShowUrl;
 
+    @Value("${template_message_url}")
+    private String templateMessageUrl;
 
     public String getAppId() {
         return appId;
@@ -62,5 +64,13 @@ public class WeChatProperty {
 
     public void setQrCodeShowUrl(String qrCodeShowUrl) {
         this.qrCodeShowUrl = qrCodeShowUrl;
+    }
+
+    public String getTemplateMessageUrl() {
+        return templateMessageUrl;
+    }
+
+    public void setTemplateMessageUrl(String templateMessageUrl) {
+        this.templateMessageUrl = templateMessageUrl;
     }
 }
