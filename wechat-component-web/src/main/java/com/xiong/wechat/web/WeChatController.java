@@ -7,7 +7,6 @@ import com.xiong.wechat.api.dto.WeChatUserDto;
 import com.xiong.wechat.lib.constants.WeChatConstant;
 import com.xiong.wechat.lib.properties.WeChatProperty;
 import com.xiong.wechat.lib.util.AccessToken;
-import com.xiong.wechat.service.WeChatCommonImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -37,7 +36,6 @@ public class WeChatController{
 
     @Resource
     private WeChatCommonApi weChatCommonApi;
-
 
     @GetMapping("user/{openId}")
     @ResponseBody
