@@ -7,6 +7,7 @@
         <module>wechat-component-api</module>
         <module>wechat-component-lib</module>
         <module>wechat-component-web</module>
+        <module>wechat-component-service</module>
     </modules>
 
     <parent>
@@ -23,6 +24,7 @@
         <java.version>1.8</java.version>
         <wechat.component.lib.version>1.0.0</wechat.component.lib.version>
         <wechat.component.api.version>1.0.0</wechat.component.api.version>
+        <wechat.component.service.version>1.0.0</wechat.component.service.version>
     </properties>
 
     <dependencies>

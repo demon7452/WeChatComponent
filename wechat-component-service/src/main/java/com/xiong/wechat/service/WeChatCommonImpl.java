@@ -18,9 +18,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
 
-import static com.xiong.wechat.lib.constants.WeChatConstant.PARAM_OPEN_ID;
-
-
 @Service
 public class WeChatCommonImpl implements WeChatCommonApi {
 
@@ -40,7 +37,7 @@ public class WeChatCommonImpl implements WeChatCommonApi {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(weChatProperty.getSingleWeChatUserInfoUrl())
                 .queryParam(WeChatConstant.PARAM_ACCESS_TOKEN, accessToken.getValue())
-                .queryParam(PARAM_OPEN_ID, openId);
+                .queryParam(WeChatConstant.PARAM_OPEN_ID, openId);
 
         ResponseEntity<String> responseEntity = localRest.getForEntity(builder.build().toUri(), String.class);
 
