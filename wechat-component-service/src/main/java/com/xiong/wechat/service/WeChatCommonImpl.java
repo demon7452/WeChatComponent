@@ -9,7 +9,6 @@ import com.xiong.wechat.lib.constants.WeChatConstant;
 import com.xiong.wechat.lib.enums.MsgTypeEnum;
 import com.xiong.wechat.lib.properties.WeChatProperty;
 import com.xiong.wechat.lib.util.AccessToken;
-import com.xiong.wechat.strategy.AbstractCallbackHandler;
 import com.xiong.wechat.strategy.callback.EventCallbackHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
