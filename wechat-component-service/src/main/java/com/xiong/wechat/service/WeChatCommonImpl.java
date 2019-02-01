@@ -6,8 +6,11 @@ import com.xiong.wechat.api.dto.QRCodeReqDto;
 import com.xiong.wechat.api.dto.QRCodeRpsDto;
 import com.xiong.wechat.api.dto.WeChatUserDto;
 import com.xiong.wechat.lib.constants.WeChatConstant;
+import com.xiong.wechat.lib.enums.MsgTypeEnum;
 import com.xiong.wechat.lib.properties.WeChatProperty;
 import com.xiong.wechat.lib.util.AccessToken;
+import com.xiong.wechat.strategy.AbstractCallbackHandler;
+import com.xiong.wechat.strategy.callback.EventCallbackHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -19,6 +22,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
+import java.util.Map;
+
+import static com.xiong.wechat.lib.constants.CallbackParameterNameConstant.MSG_TYPE;
 
 @Service
 public class WeChatCommonImpl implements WeChatCommonApi {
@@ -33,6 +39,9 @@ public class WeChatCommonImpl implements WeChatCommonApi {
 
     @Resource
     private RestTemplate restTemplate;
+
+    @Resource
+    private EventCallbackHandler eventCallbackHandler;
 
     @Override
     public QRCodeRpsDto getQRCode(QRCodeReqDto qrCodeReqDto) {
@@ -51,6 +60,26 @@ public class WeChatCommonImpl implements WeChatCommonApi {
         qrCodeRpsDto.setQrCodeBytes(response.getBody());
 
         return qrCodeRpsDto;
+    }
+
+
+    @Override
+    public String handleCallBack(Map<String, String> callbackMap) {
+
+        MsgTypeEnum msgTypeEnum = MsgTypeEnum.getEnumByKey(callbackMap.get(MSG_TYPE));
+
+        if (null == msgTypeEnum) {
+            return "no match callback message type:" + callbackMap.get(MSG_TYPE);
+        }
+
+        switch (msgTypeEnum) {
+            case EVENT:
+                return eventCallbackHandler.handleCallBack(callbackMap);
+            case TEXT:
+                return "text";// TODO: 19-2-1   // 处理文本消息
+            default:
+                return "success";
+        }
     }
 
     @Override

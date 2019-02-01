@@ -4,6 +4,8 @@ import com.xiong.wechat.api.dto.QRCodeReqDto;
 import com.xiong.wechat.api.dto.QRCodeRpsDto;
 import com.xiong.wechat.api.dto.WeChatUserDto;
 
+import java.util.Map;
+
 public interface WeChatCommonApi {
 
     /**
@@ -12,6 +14,13 @@ public interface WeChatCommonApi {
      * @return 二维码字节流
      */
     QRCodeRpsDto getQRCode(QRCodeReqDto qrCodeReqDto);
+
+    /**
+     * 处理微信回调信息
+     * @param callbackMap 回调信息
+     * @return 响应
+     */
+    String handleCallBack(Map<String, String> callbackMap);
 
     /**
      * 微信用户详细信息
