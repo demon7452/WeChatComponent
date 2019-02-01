@@ -2,6 +2,7 @@ package com.xiong.wechat.web;
 
 import com.alibaba.fastjson.JSON;
 import com.xiong.wechat.api.WeChatCommonApi;
+import com.xiong.wechat.api.dto.QRCodeReqDto;
 import com.xiong.wechat.api.dto.TemplateMessageDto;
 import com.xiong.wechat.api.dto.WeChatUserDto;
 import com.xiong.wechat.lib.constants.WeChatConstant;
@@ -16,6 +17,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.OutputStream;
 
 import static com.xiong.wechat.lib.enums.WeChatErrorEnum.ERROR_TRANSFER;
 
@@ -36,6 +40,17 @@ public class WeChatController{
 
     @Resource
     private WeChatCommonApi weChatCommonApi;
+
+
+    @PostMapping("show/qrcode")
+    public void showQrCode(@RequestBody QRCodeReqDto qrCodeReqDto, HttpServletResponse response) throws Exception {
+
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+        OutputStream os = response.getOutputStream();
+        os.write(weChatCommonApi.getQRCode(qrCodeReqDto).getQrCodeBytes());
+        os.flush();
+        os.close();
+    }
 
     @GetMapping("user/{openId}")
     @ResponseBody

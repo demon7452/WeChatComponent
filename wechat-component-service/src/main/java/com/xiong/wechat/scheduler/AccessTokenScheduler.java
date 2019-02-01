@@ -43,13 +43,13 @@ public class AccessTokenScheduler {
     @Scheduled(fixedRate = 100 * 60 * 1000L)
     public void updateAccessToken(){
 
-        // TODO: 19-1-25 check or not?
-        String token = stringRedisTemplate.opsForValue().get(WeChatConstant.ACCESS_TOKEN_CACHE_KEY);
-        accessToken.setValue(token);
-        if(!StringUtils.isEmpty(token)){
-            logger.info("access token:{}", token);
-            return;
-        }
+//        // TODO: 19-1-25 check or not?
+//        String token = stringRedisTemplate.opsForValue().get(WeChatConstant.ACCESS_TOKEN_CACHE_KEY);
+//        accessToken.setValue(token);
+//        if(!StringUtils.isEmpty(token)){
+//            logger.info("access token:{}", token);
+//            return;
+//        }
 
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weChatProperty.getAccessTokenUrl())
