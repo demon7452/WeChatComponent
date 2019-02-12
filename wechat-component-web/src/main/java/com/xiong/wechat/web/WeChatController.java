@@ -18,7 +18,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.OutputStream;
 
 import static com.xiong.wechat.lib.enums.WeChatErrorEnum.ERROR_TRANSFER;
@@ -84,7 +83,8 @@ public class WeChatController{
                 .queryParam(WeChatConstant.PARAM_ACCESS_TOKEN, accessToken.getValue());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);//解决中文乱码
+
         HttpEntity<String> entity = new HttpEntity<>(message, headers);
 
         return restTemplate.postForEntity(builder.build().toUri(), entity, String.class);
