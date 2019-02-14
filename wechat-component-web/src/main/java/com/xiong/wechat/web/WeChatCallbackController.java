@@ -2,10 +2,12 @@ package com.xiong.wechat.web;
 
 import com.alibaba.fastjson.JSON;
 import com.xiong.wechat.api.WeChatCommonApi;
+import com.xiong.wechat.lib.properties.WeChatProperty;
 import com.xiong.wechat.lib.util.XmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,13 +15,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Map;
 
 @Controller
 public class WeChatCallbackController {
 
     private Logger logger = LoggerFactory.getLogger(WeChatCallbackController.class);
+
+    @Resource
+    private WeChatProperty weChatProperty;
 
     @Resource
     private WeChatCommonApi weChatCommonApi;
@@ -51,17 +60,29 @@ public class WeChatCallbackController {
     /**
      * 公众号域名绑定
      * @param request 微信请求
-     * @return echostr
      */
     @GetMapping("receive/wechat/callback")
-    @ResponseBody
-    public String verifyWeChatCallBackUrl(HttpServletRequest request) {
-        String echostr = request.getParameter("echostr");
-        String msgSignature = request.getParameter("signature");
-        String msgTimestamp = request.getParameter("timestamp");
-        String msgNonce = request.getParameter("nonce");
+    public void verifyWeChatCallBackUrl(HttpServletRequest request, HttpServletResponse response) {
 
-        logger.info("wechat verify request:{}", JSON.toJSONString(request.getParameterMap()));
-        return echostr;
+        logger.info("weChat callback url verify request:{}", JSON.toJSONString(request.getParameterMap()));
+
+        // 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
+        String signature = request.getParameter("signature");
+        // 时间戳
+        String timestamp = request.getParameter("timestamp");
+        // 随机数
+        String nonce = request.getParameter("nonce");
+        // 随机字符串
+        String echostr = request.getParameter("echostr");
+
+        if(StringUtils.isEmpty(echostr)){
+            return;
+        }
+
+        try {
+            response.getWriter().write(echostr);
+        } catch (IOException e) {
+            logger.error("weChat callback url verify failed", e);
+        }
     }
 }
