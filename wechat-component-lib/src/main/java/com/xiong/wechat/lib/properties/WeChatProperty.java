@@ -14,6 +14,12 @@ public class WeChatProperty {
     @Value("${app_secret}")
     private String appSecret;
 
+    @Value("${encoding_aes_key}")
+    private String encodingAesKey;
+
+    @Value("${callback_url_token}")
+    private String callbackUrlToken;
+
     @Value("${access_token_url}")
     private String accessTokenUrl;
 
@@ -83,5 +89,21 @@ public class WeChatProperty {
 
     public void setSingleWeChatUserInfoUrl(String singleWeChatUserInfoUrl) {
         this.singleWeChatUserInfoUrl = singleWeChatUserInfoUrl;
+    }
+
+    public String getEncodingAesKey() {
+        return encodingAesKey;
+    }
+
+    public void setEncodingAesKey(String encodingAesKey) {
+        this.encodingAesKey = encodingAesKey;
+    }
+
+    public String getCallbackUrlToken() {
+        return callbackUrlToken;
+    }
+
+    public void setCallbackUrlToken(String callbackUrlToken) {
+        this.callbackUrlToken = callbackUrlToken;
     }
 }
