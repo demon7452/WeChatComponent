@@ -41,16 +41,12 @@ public class AccessTokenScheduler {
      * 定时任务每100分钟执行一次，刷新AccessToken
      */
     @Scheduled(fixedRate = 100 * 60 * 1000L)
-    public void updateAccessToken(){
+    public void updateAccessTokenSchedule(){
+        updateAccessToken();
+    }
 
-//        // TODO: 19-1-25 check or not?
-//        String token = stringRedisTemplate.opsForValue().get(WeChatConstant.ACCESS_TOKEN_CACHE_KEY);
-//        accessToken.setValue(token);
-//        if(!StringUtils.isEmpty(token)){
-//            logger.info("access token:{}", token);
-//            return;
-//        }
 
+    public ResponseEntity<String> updateAccessToken(){
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weChatProperty.getAccessTokenUrl())
                 .queryParam(WeChatConstant.PARAM_GRANT_TYPE, WeChatConstant.ACCESS_TOKEN_GRANT_TYPE)
@@ -59,17 +55,17 @@ public class AccessTokenScheduler {
 
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(builder.build().encode().toUri(), String.class);
 
-        logger.info("access token response entity:{}", responseEntity.toString());
-
         AccessTokenRpsDto accessTokenRpsDto = JSON.parseObject(responseEntity.getBody(), AccessTokenRpsDto.class);
-
         if((HttpStatus.OK != responseEntity.getStatusCode()) || null == accessTokenRpsDto || StringUtils.isEmpty(accessTokenRpsDto.getAccess_token())){
-            logger.error("failed to get access token from weChat!");
-            return;
+            logger.error("failed to get access token from weChat! responseEntity:{}", JSON.toJSONString(responseEntity));
+            return responseEntity;
         }
 
         stringRedisTemplate.opsForValue().set(WeChatConstant.ACCESS_TOKEN_CACHE_KEY, accessTokenRpsDto.getAccess_token(), 2, TimeUnit.HOURS);
 
         accessToken.setValue(accessTokenRpsDto.getAccess_token());
+
+        logger.info("access token response entity:{}", JSON.toJSONString(responseEntity));
+        return responseEntity;
     }
 }
