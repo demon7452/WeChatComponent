@@ -45,7 +45,7 @@ public class WeChatCallbackController {
             logger.info("weChat callback map:{}", JSON.toJSONString(callbackMap));
 
             String replyMessage = weChatCommonApi.handleCallBack(callbackMap);
-            logger.info("reply to weCaht:{}", replyMessage);
+            logger.info("reply to weChat:{}", replyMessage);
 
             // 向微信响应消息
             PrintWriter out = response.getWriter();

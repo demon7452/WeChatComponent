@@ -24,6 +24,7 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 import static com.xiong.wechat.lib.constants.CallbackParameterNameConstant.MSG_TYPE;
+import static com.xiong.wechat.lib.constants.WeChatConstant.DEFAULT_SUCCESS;
 
 @Service
 public class WeChatCommonImpl implements WeChatCommonApi {
@@ -64,20 +65,24 @@ public class WeChatCommonImpl implements WeChatCommonApi {
 
     @Override
     public String handleCallBack(Map<String, String> callbackMap) {
+        logger.info("weChat callback map:{}", JSON.toJSONString(callbackMap));
 
-        MsgTypeEnum msgTypeEnum = MsgTypeEnum.getEnumByKey(callbackMap.get(MSG_TYPE));
+        String msgTypeStr = callbackMap.get(MSG_TYPE);
+        MsgTypeEnum msgTypeEnum = MsgTypeEnum.getEnumByKey(msgTypeStr);
 
         if (null == msgTypeEnum) {
-            return "no match callback message type:" + callbackMap.get(MSG_TYPE);
+            logger.error("no match callback message type:{}", msgTypeStr);
+            return DEFAULT_SUCCESS;
         }
 
         switch (msgTypeEnum) {
             case EVENT:
                 return eventCallbackHandler.handleCallBack(callbackMap);
             case TEXT:
-                return "text";// TODO: 19-2-1   // 处理文本消息
+                return DEFAULT_SUCCESS;// TODO: 19-2-1   // 处理文本消息
             default:
-                return "success";
+                logger.error("no suitable message type handler!");
+                return DEFAULT_SUCCESS;
         }
     }
 
