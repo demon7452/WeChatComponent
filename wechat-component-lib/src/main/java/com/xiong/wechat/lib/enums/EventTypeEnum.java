@@ -10,6 +10,7 @@ public enum EventTypeEnum {
     SCAN("SCAN","已关注用户扫描二维码"),
     UNSUBSCRIBE("unsubscribe","取消关注公众号"),
     CLICK("CLICK","自定义菜单点击事件"),
+    TEMPLATE_SEND_SUCCESS("TEMPLATESENDJOBFINISH", "模板消息发送成功")
     ;
     private String key;
 
