@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Map;
 
 import static com.xiong.wechat.lib.constants.CallbackParameterNameConstant.*;
+import static com.xiong.wechat.lib.constants.WeChatConstant.DEFAULT_SUBSCRIBE_REPLY;
 import static com.xiong.wechat.lib.constants.WeChatConstant.DEFAULT_SUCCESS;
 
 @Component("eventCallbackHandler")
@@ -39,7 +40,7 @@ public class EventCallbackHandler extends AbstractCallbackHandler {
             case SUBSCRIBE:
                 return handleSubscribeEvent(eventCallbackDto);
             case SCAN:
-                return handleScanEvent(eventCallbackDto);
+                return DEFAULT_SUCCESS;
             case UNSUBSCRIBE:
                 return DEFAULT_SUCCESS;// TODO: 19-2-25
             default:
@@ -52,18 +53,7 @@ public class EventCallbackHandler extends AbstractCallbackHandler {
         logger.info("user subscribe event:{}", JSON.toJSONString(eventCallbackDto));
 
         BaseReply textReply = TextReply.build()
-                .setContent("欢迎关注！")// TODO: 19-2-25
-                .setToUserOpenId(eventCallbackDto.getFromUserName())
-                .setWeChatOpenId(eventCallbackDto.getToUserName());
-
-        return XmlUtil.objectToXml(textReply);
-    }
-
-    private String handleScanEvent(EventCallbackDto eventCallbackDto) {
-        logger.info("user scan event:{}", JSON.toJSONString(eventCallbackDto));
-
-        BaseReply textReply = TextReply.build()
-                .setContent("欢迎扫描！")// TODO: 19-2-25
+                .setContent(DEFAULT_SUBSCRIBE_REPLY)
                 .setToUserOpenId(eventCallbackDto.getFromUserName())
                 .setWeChatOpenId(eventCallbackDto.getToUserName());
 
