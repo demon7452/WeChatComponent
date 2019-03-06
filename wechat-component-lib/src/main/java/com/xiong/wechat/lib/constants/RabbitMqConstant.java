@@ -2,6 +2,9 @@ package com.xiong.wechat.lib.constants;
 
 public class RabbitMqConstant {
 
+    private RabbitMqConstant() {
+    }
+
     public static final String USER_BIND_WECHAT_QUEUE = "guiyu.user_bind_wechat.queue";
 
     public static final String USER_BIND_WECHAT_EXCHANGE = "guiyu.user_bind_wechat.exchange";

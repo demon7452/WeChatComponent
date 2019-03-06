@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.Resource;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static com.xiong.wechat.lib.constants.CallbackParameterNameConstant.MSG_TYPE;
@@ -89,7 +89,7 @@ public class WeChatCommonImpl implements WeChatCommonApi {
     @Override
     public WeChatUserDto getWeChatUserInfo(String openId) {
 
-        StringHttpMessageConverter messageConverter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
+        StringHttpMessageConverter messageConverter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
         RestTemplate localRest = new RestTemplateBuilder().additionalMessageConverters(messageConverter).build();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(weChatProperty.getSingleWeChatUserInfoUrl())

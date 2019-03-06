@@ -19,21 +19,20 @@ import java.util.Map;
 
 public class XmlUtil {
 
-
+    private XmlUtil() {
+    }
 
     private static XStream xstream;
 
     static {
         xstream = new XStream(new XppDriver() {
+            @Override
             public HierarchicalStreamWriter createWriter(Writer out) {
                 return new PrettyPrintWriter(out) {
                     // 对所有xml节点的转换都增加CDATA标记
                     boolean cdata = true;
 
-                    public void startNode(String name, Class clazz) {
-                        super.startNode(name, clazz);
-                    }
-
+                    @Override
                     protected void writeText(QuickWriter writer, String text) {
                         if (cdata) {
                             writer.write("<![CDATA[");
@@ -49,7 +48,7 @@ public class XmlUtil {
     }
 
 
-    public static Map<String, String> xmlToMap(InputStream inputStream) throws RuntimeException{
+    public static Map<String, String> xmlToMap(InputStream inputStream){
         Map<String, String> map = Maps.newHashMap();
 
         SAXReader reader = new SAXReader();
@@ -70,7 +69,6 @@ public class XmlUtil {
         } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
-
 
         return map;
     }

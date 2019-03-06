@@ -2,6 +2,9 @@ package com.xiong.wechat.lib.constants;
 
 public class CallbackParameterNameConstant {
 
+    private CallbackParameterNameConstant() {
+    }
+
     /**
      * 开发者微信号
      */

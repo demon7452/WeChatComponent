@@ -64,7 +64,7 @@ public class WeChatController{
 
         ResponseEntity<String> responseEntity = sendTemplateMessage(JSON.toJSONString(templateMessageDto));
 
-        logger.info("send message result:{}", responseEntity.toString());
+        logger.info("send message result:{}", responseEntity);
 
         if(HttpStatus.OK != responseEntity.getStatusCode()){
             logger.error(ERROR_TRANSFER.getDesc());

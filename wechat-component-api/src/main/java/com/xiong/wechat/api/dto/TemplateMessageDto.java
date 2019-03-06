@@ -1,11 +1,15 @@
 package com.xiong.wechat.api.dto;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * WeChat template message
  */
-public class TemplateMessageDto {
+public class TemplateMessageDto implements Serializable{
+
+    private static final long serialVersionUID = -8610578777758495465L;
 
     private String touser;
 
@@ -15,7 +19,7 @@ public class TemplateMessageDto {
 
     private MiniProgram miniprogram;
 
-    private HashMap<String,DataItem> data;
+    private Map<String,DataItem> data;
 
     private TemplateMessageDto() {
         data = new HashMap<>();
@@ -64,7 +68,7 @@ public class TemplateMessageDto {
 
     }
 
-    public HashMap<String, DataItem> getData() {
+    public Map<String, DataItem> getData() {
         return data;
     }
 
@@ -77,7 +81,10 @@ public class TemplateMessageDto {
         return this;
     }
 
-    public static class MiniProgram{
+    public static class MiniProgram implements Serializable{
+
+        private static final long serialVersionUID = -6781399704135417929L;
+
         private String appid;
 
         private String pagepath;
@@ -99,7 +106,9 @@ public class TemplateMessageDto {
         }
     }
 
-    public static class DataItem {
+    public static class DataItem implements Serializable {
+
+        private static final long serialVersionUID = 7104445022907713645L;
         private Object value;
         private String color;
 
