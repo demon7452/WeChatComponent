@@ -1,10 +1,12 @@
 package com.xiong.wechat;
 
+import com.xiong.wechat.lib.properties.WeChatAccountProperties;
 import com.xiong.wechat.lib.util.AccessToken;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -13,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableScheduling
 @EnableRabbit
+@EnableConfigurationProperties(WeChatAccountProperties.class)
 public class WeChatApplication extends SpringBootServletInitializer {
 
     @Bean(value = "restTemplate")

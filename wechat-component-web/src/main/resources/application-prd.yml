@@ -1,0 +1,21 @@
+server:
+  port: 8800
+
+spring:
+  application:
+    name: wechat-component-web
+  redis:
+    database: 9
+    host: 192.168.1.81
+    port: 6379
+    password: 123456
+  rabbitmq:
+    host: 192.168.1.81
+    port: 5672
+    virtual-host: /
+    username: guiyu
+    password: 123456
+
+wechat:
+  appId: wxf7f93e4204e10bef #xiong
+  appSecret: 09a5090e08bf82b85addb02338bfa6e7 #xiong

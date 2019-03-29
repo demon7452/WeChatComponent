@@ -21,6 +21,12 @@ public class WeChatConstant {
 
     public static final String PARAM_ZH_CN = "zh_CN";
 
+    public static final String PARAM_SCOPE = "scope";
+
+    public static final String PARAM_STATE = "state";
+
+    public static final String PARAM_CODE = "code";
+
     public static final String ACCESS_TOKEN_GRANT_TYPE = "client_credential";
 
     public static final String ACCESS_TOKEN_CACHE_KEY = "guiyu_wechat_access_token_cache_key";

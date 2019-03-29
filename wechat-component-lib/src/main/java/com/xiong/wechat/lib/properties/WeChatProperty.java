@@ -8,15 +8,6 @@ import org.springframework.stereotype.Component;
 @PropertySource(value = "classpath:properties/wechat.properties")
 public class WeChatProperty {
 
-    @Value("${app_id}")
-    private String appId;
-
-    @Value("${app_secret}")
-    private String appSecret;
-
-    @Value("${encoding_aes_key}")
-    private String encodingAesKey;
-
     @Value("${callback_url_token}")
     private String callbackUrlToken;
 
@@ -35,21 +26,20 @@ public class WeChatProperty {
     @Value("${single_wechat_user_info_url}")
     private String singleWeChatUserInfoUrl;
 
-    public String getAppId() {
-        return appId;
-    }
+    @Value("${custom_menu_create_url}")
+    private String customMenuCreateUrl;
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
+    @Value("${custom_menu_get_url}")
+    private String customMenuGetUrl;
 
-    public String getAppSecret() {
-        return appSecret;
-    }
+    @Value("${custom_menu_delete_url}")
+    private String customMenuDeleteUrl;
 
-    public void setAppSecret(String appSecret) {
-        this.appSecret = appSecret;
-    }
+    @Value("${auth_url}")
+    private String authUrl;
+
+    @Value("${auth_access_token_url}")
+    private String authAccessTokenUrl;
 
     public String getAccessTokenUrl() {
         return accessTokenUrl;
@@ -91,19 +81,51 @@ public class WeChatProperty {
         this.singleWeChatUserInfoUrl = singleWeChatUserInfoUrl;
     }
 
-    public String getEncodingAesKey() {
-        return encodingAesKey;
-    }
-
-    public void setEncodingAesKey(String encodingAesKey) {
-        this.encodingAesKey = encodingAesKey;
-    }
-
     public String getCallbackUrlToken() {
         return callbackUrlToken;
     }
 
     public void setCallbackUrlToken(String callbackUrlToken) {
         this.callbackUrlToken = callbackUrlToken;
+    }
+
+    public String getCustomMenuCreateUrl() {
+        return customMenuCreateUrl;
+    }
+
+    public void setCustomMenuCreateUrl(String customMenuCreateUrl) {
+        this.customMenuCreateUrl = customMenuCreateUrl;
+    }
+
+    public String getCustomMenuGetUrl() {
+        return customMenuGetUrl;
+    }
+
+    public void setCustomMenuGetUrl(String customMenuGetUrl) {
+        this.customMenuGetUrl = customMenuGetUrl;
+    }
+
+    public String getCustomMenuDeleteUrl() {
+        return customMenuDeleteUrl;
+    }
+
+    public void setCustomMenuDeleteUrl(String customMenuDeleteUrl) {
+        this.customMenuDeleteUrl = customMenuDeleteUrl;
+    }
+
+    public String getAuthUrl() {
+        return authUrl;
+    }
+
+    public void setAuthUrl(String authUrl) {
+        this.authUrl = authUrl;
+    }
+
+    public String getAuthAccessTokenUrl() {
+        return authAccessTokenUrl;
+    }
+
+    public void setAuthAccessTokenUrl(String authAccessTokenUrl) {
+        this.authAccessTokenUrl = authAccessTokenUrl;
     }
 }

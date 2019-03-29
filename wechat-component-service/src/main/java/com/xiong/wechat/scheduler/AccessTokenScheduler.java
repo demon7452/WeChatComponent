@@ -3,6 +3,7 @@ package com.xiong.wechat.scheduler;
 import com.alibaba.fastjson.JSON;
 import com.xiong.wechat.api.dto.AccessTokenRpsDto;
 import com.xiong.wechat.lib.constants.WeChatConstant;
+import com.xiong.wechat.lib.properties.WeChatAccountProperties;
 import com.xiong.wechat.lib.properties.WeChatProperty;
 import com.xiong.wechat.lib.util.AccessToken;
 import org.slf4j.Logger;
@@ -36,6 +37,8 @@ public class AccessTokenScheduler {
     @Resource
     private AccessToken accessToken;
 
+    @Resource
+    private WeChatAccountProperties weChatAccountProperties;
     /**
      * 微信AccessToken 会在2小时失效
      * 定时任务每100分钟执行一次，刷新AccessToken
@@ -50,8 +53,8 @@ public class AccessTokenScheduler {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(weChatProperty.getAccessTokenUrl())
                 .queryParam(WeChatConstant.PARAM_GRANT_TYPE, WeChatConstant.ACCESS_TOKEN_GRANT_TYPE)
-                .queryParam(WeChatConstant.PARAM_APPID, weChatProperty.getAppId())
-                .queryParam(WeChatConstant.PARAM_SECRET, weChatProperty.getAppSecret());
+                .queryParam(WeChatConstant.PARAM_APPID, weChatAccountProperties.getAppId())
+                .queryParam(WeChatConstant.PARAM_SECRET, weChatAccountProperties.getAppSecret());
 
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(builder.build().encode().toUri(), String.class);
 
